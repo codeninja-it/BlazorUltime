@@ -1,0 +1,35 @@
+﻿<div class="alert alert-secondary mt-4" role="alert">
+    <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
+    <strong>@Title</strong>
+
+    <span class="text-nowrap">
+        Please take our
+        <a target="_blank" class="font-weight-bold" href="https://go.microsoft.com/fwlink/?linkid=2112271">brief survey</a>
+    </span>
+    and tell us what you think.
+</div>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public string Title { get; set; }
+
+    /// <summary>
+    /// Funzione fittizia a scopo dimostrativo
+    /// </summary>
+    /// <param name="domanda">la domanda da porre all'utente</param>
+    /// <returns>Banalmente ciao...</returns>
+    public string LeggiDati(string domanda)
+    {
+        return "ciao";
+    }
+
+
+    public void test()
+    {
+        LeggiDati("");
+    }
+}
