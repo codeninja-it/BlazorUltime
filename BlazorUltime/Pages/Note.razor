@@ -1,0 +1,31 @@
+﻿@page "/note"
+
+<h1>Note</h1>
+<input type="text" placeholder="titolo della nota" @bind-value="nuovoTitolo" />
+<p>@nuovoTitolo</p>
+<button @onclick="(e => Aggiungi())">nuova</button>
+
+@foreach(Nota singola in tutte)
+{
+    <div class="nota">
+        <span class="titolo">@singola.Titolo</span>
+        <p>@singola.Corpo</p>
+        <span class="quando">@singola.Quando</span>
+    </div>
+}
+
+@code {
+
+    public List<Nota> tutte = new List<Nota>();
+    public string nuovoTitolo = "";
+
+    public void Aggiungi()
+    {
+        Nota nuova = new Nota();
+        nuova.Titolo = nuovoTitolo;
+        nuova.Corpo = "not set";
+        nuova.Quando = DateTime.Now;
+        tutte.Add(nuova);
+    }
+
+}

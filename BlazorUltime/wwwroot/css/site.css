@@ -181,3 +181,12 @@ app {
         display: block;
     }
 }
+
+/* aspetto grafico delle note */
+.nota {
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    margin: 1em;
+    display:inline-block;
+}
