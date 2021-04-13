@@ -1,31 +1,64 @@
 ﻿@page "/note"
+@using Data
+@inject BancaDati db 
 
 <h1>Note</h1>
-<input type="text" placeholder="titolo della nota" @bind-value="nuovoTitolo" />
-<p>@nuovoTitolo</p>
-<button @onclick="(e => Aggiungi())">nuova</button>
+
+<div class="pulsantiera">
+    <input type="text" placeholder="a cosa stai pensando?" @bind-value="nuovaNota.Titolo" />
+    <input type="text" placeholder="corpo della nota" @bind-value="nuovaNota.Corpo" />
+    <input type="color" @bind-value="nuovaNota.Colore" />
+    <button @onclick="(e => Aggiungi())">inserisci</button>
+</div>
+
 
 @foreach(Nota singola in tutte)
 {
-    <div class="nota">
+    <div class="nota" style="background-color: @singola.Colore">
         <span class="titolo">@singola.Titolo</span>
         <p>@singola.Corpo</p>
-        <span class="quando">@singola.Quando</span>
+        <quando>@singola.Quando</quando>
+        <chiudi @onclick="(e => Cancella(singola))">X</chiudi>
     </div>
 }
 
 @code {
 
     public List<Nota> tutte = new List<Nota>();
-    public string nuovoTitolo = "";
+    public Nota nuovaNota = new Nota();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        tutte = db.note.Select(x => new Nota() { 
+            ID = x.ID,
+            Corpo = x.Corpo,
+            Titolo = x.Titolo,
+            Quando = x.Quando,
+            Colore = x.Colore
+        }).ToList();
+    }
 
     public void Aggiungi()
     {
-        Nota nuova = new Nota();
-        nuova.Titolo = nuovoTitolo;
-        nuova.Corpo = "not set";
-        nuova.Quando = DateTime.Now;
-        tutte.Add(nuova);
+        Nota daInserire = new Nota();
+        daInserire.Titolo = nuovaNota.Titolo;
+        daInserire.Corpo = nuovaNota.Corpo;
+        daInserire.Colore = nuovaNota.Colore;
+        daInserire.Quando = DateTime.Now;
+        tutte.Add(daInserire);
+        db.note.Add(daInserire);
+        db.SaveChanges();
+        nuovaNota.Titolo = "";
+        nuovaNota.Corpo = "";
+        nuovaNota.Colore = "";
+    }
+
+    public void Cancella(Nota daCancellare)
+    {
+        tutte.Remove(daCancellare);
+        db.note.Remove(daCancellare);
+        db.SaveChanges();
     }
 
 }

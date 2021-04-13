@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorUltime.Pages
+namespace BlazorUltime.Data
 {
 	/// <summary>
 	/// Classe descrittiva per l'elemento di banca dati Nota
 	/// </summary>
 	public class Nota
 	{
+		public int ID { get; set; }
 		/// <summary>
 		/// titolo della nota in formato string
 		/// </summary>
@@ -22,5 +23,9 @@ namespace BlazorUltime.Pages
 		/// Giorno ed ora di creazione della nostra nota
 		/// </summary>
 		public DateTime Quando { get; set; }
+		/// <summary>
+		/// colore espresso in esadecimale
+		/// </summary>
+		public String Colore { get; set; }
 	}
 }

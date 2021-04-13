@@ -2,6 +2,7 @@ using BlazorUltime.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,7 +28,7 @@ namespace BlazorUltime
 		{
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
-			services.AddSingleton<WeatherForecastService>();
+			services.AddDbContext<BancaDati>(opt => opt.UseSqlite("DataSource=archivio.db"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
