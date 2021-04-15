@@ -1,0 +1,29 @@
+﻿<div class="pulsantiera">
+    <p><input type="text" class="form-control" placeholder="a cosa stai pensando?" @bind-value="nota.Titolo" /></p>
+    <p><input type="text" class="form-control" placeholder="corpo della nota" @bind-value="nota.Corpo" /></p>
+    <p><input type="color" class="form-control" @bind-value="nota.Colore" /></p>
+    <p><button class="btn btn-primary" @onclick="(e => inserimento())">inserisci</button></p>
+</div>
+ 
+@code {
+    /// <summary>
+    /// Evento di connessione per l'inserimento di una nuova nota
+    /// </summary>
+    [Parameter]
+    public EventCallback<Nota> onInserisci { get; set; }
+
+    private Nota nota = new Nota();
+
+    private void inserimento()
+    {
+        Nota nuova = new Nota()
+        {
+            Titolo = nota.Titolo,
+            Corpo = nota.Corpo,
+            Colore = nota.Colore,
+            Quando = DateTime.Now
+        };
+        onInserisci.InvokeAsync(nuova);
+        nota = new Nota();
+    }
+}

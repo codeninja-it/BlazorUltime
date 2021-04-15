@@ -1,0 +1,20 @@
+﻿<div class="nota" style="background-color: @nota.Colore">
+    <titolo>@nota.Titolo</titolo>
+    <corpo>@nota.Corpo</corpo>
+    <quando>@nota.Quando</quando>
+    <chiudi @onclick="(e => onElimina.InvokeAsync(nota))" class="oi oi-trash" aria-hidden="true"></chiudi>
+</div>
+
+@code {
+    /// <summary>
+    /// Nota da visualizzare
+    /// </summary>
+    [Parameter]
+    public Nota nota { get; set; }
+
+    /// <summary>
+    /// Evento da istanzaire su eliminazione
+    /// </summary>
+    [Parameter]
+    public EventCallback<Nota> onElimina { get; set; }
+}

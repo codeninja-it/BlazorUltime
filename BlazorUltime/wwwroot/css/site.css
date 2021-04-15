@@ -183,15 +183,6 @@ app {
 }
 
 /* Codice di visualuzzazione PostIt */
-.nota {
-    width: 200px;
-    height: 200px;
-    background-color: yellow;
-    margin: 1em;
-    display:inline-block;
-    position: relative;
-}
-
 .pulsantiera {
     position: fixed;
     right: 0;
@@ -204,34 +195,42 @@ app {
     z-index: 9999;
 }
 
-.pulsantiera > input {
-    width: 100%;
+.nota {
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    margin: 1em;
+    display: inline-block;
+    position: relative;
+    padding: .5em;
 }
 
-.pulsantiera > button {
-    width: 100%;
-    background-color: blue;
+.nota > titolo {
+    display: block;
+    font-weight: bold;
 }
 
-chiudi {
+.nota > corpo {
+
+}
+
+.nota > chiudi {
     display: block;
     position: absolute;
-    top: .2em;
-    right: .2em;
-    width: 1.5em;
-    height: 1.5em;
+    top: -1em;
+    right: -1em;
     background-color: red;
     color: white;
-    padding: .1em;
-    border-radius: .2em;
+    padding: .5em;
+    border-radius: 1em;
     cursor: pointer;
 }
 
-chiudi:hover {
+.nota > chiudi:hover {
     background-color: darkred;
 }
 
-quando {
+.nota > quando {
     position: absolute;
     bottom: 0;
     left: 0;
