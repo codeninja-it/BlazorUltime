@@ -1,5 +1,6 @@
 ﻿@page "/note"
 @inject BancaDati db 
+@using System.Threading
 
 <h1>Note</h1>
 
@@ -12,18 +13,28 @@
 }
 
 @code {
-    public Nota nuovaNota = new Nota();
+    private Nota nuovaNota = new Nota();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        // all'inizializzazione di pagina creo un timer che lancerà
+        // una funzione ogni 1000ms
+        var timer = new Timer(new TimerCallback(e =>
+        {
+            InvokeAsync(() =>
+            {
+                // che a sua volta forzerà blazor a pensare che qualcosa è cambiato
+                StateHasChanged();
+            });
+        }), null, 1000, 1000);
     }
 
     public void Aggiungi(Nota daInserire)
     {
         db.note.Add(daInserire);
         db.SaveChanges();
-     }
+    }
 
     public void Cancella(Nota daCancellare)
     {
