@@ -1,0 +1,72 @@
+﻿@page "/reperti"
+@inject BancaDati db
+
+@if (nuovo == null)
+{
+    <button @onclick="(e => Aggiungi())">nuovo</button>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Periodo</th>
+            <th>Tipologia</th>
+            <th>Descrizione</th>
+            <th>Modifica</th>
+            <th>Cancellazione</th>
+        </tr>
+        @foreach (Reperto singolo in db.reperti)
+        {
+            <tr>
+                <td>@singolo.ID</td>
+                <td>@singolo.Periodo</td>
+                <td>@singolo.Tipologia</td>
+                <td>@singolo.Descrizione</td>
+                <td><button @onclick="(e => Modifica(singolo))">modifica</button></td>
+                <td><button @onclick="(e => Cancella(singolo))">cancella</button></td>
+            </tr>
+        }
+    </table>
+} else
+{
+    <p>Inserici i dati e premi ok</p>
+    <input @bind-value="nuovo.Periodo" placeholder="Periodo" /><br />
+    <input @bind-value="nuovo.Tipologia" placeholder="Tipologia" /><br />
+    <input @bind-value="nuovo.Descrizione" placeholder="Descrizione" /><br />
+    <button @onclick="(e => Salva())">OK</button>
+}
+
+
+@code {
+
+    private Reperto nuovo;
+
+    private void Cancella(Reperto daCancellare)
+    {
+        db.reperti.Remove(daCancellare);
+        db.SaveChanges();
+    }
+
+    private void Aggiungi()
+    {
+        nuovo = new Reperto();
+    }
+
+    private void Modifica(Reperto daModificare)
+    {
+        nuovo = daModificare;
+    }
+
+    private void Salva()
+    {
+        if(nuovo.ID == 0)
+        {
+            db.reperti.Add(nuovo);
+        } else
+        {
+            db.reperti.Update(nuovo);
+        }
+
+        db.SaveChanges();
+        nuovo = null;
+    }
+
+}

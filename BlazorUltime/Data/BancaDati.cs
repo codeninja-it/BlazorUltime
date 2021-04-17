@@ -9,6 +9,9 @@ namespace BlazorUltime.Data
 	public class BancaDati : DbContext
 	{
 		public DbSet<Nota> note { get; set; }
+
+		public DbSet<Reperto> reperti { get; set; }
+
 		public BancaDati(DbContextOptions options) : base(options) { }
 	}
 }

@@ -28,7 +28,7 @@ namespace BlazorUltime
 		{
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
-			services.AddDbContext<BancaDati>(opt => opt.UseSqlite(Configuration.GetConnectionString("testing")));
+			services.AddDbContext<BancaDati>(opt => opt.UseSqlite("DataSource=archivio.db"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
